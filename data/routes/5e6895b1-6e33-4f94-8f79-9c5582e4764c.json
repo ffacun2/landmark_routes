@@ -1,0 +1,25 @@
+{
+  "id": "5e6895b1-6e33-4f94-8f79-9c5582e4764c",
+  "name": "jejeje",
+  "author": "Facundo Criado",
+  "authorId": "e4a78935-52ce-43ed-bac6-7fbd563f917c",
+  "landmarks": [
+    {
+      "id": "cb420e3d-4781-40fe-9168-f712399c6c2e",
+      "name": "plaza libertad",
+      "description": "",
+      "lat": -37.846189246249814,
+      "lng": -58.25491905212403,
+      "order": 0
+    },
+    {
+      "id": "bdebcf15-f46f-486d-8f0d-158c9c2b6004",
+      "name": "calle 7",
+      "description": "",
+      "lat": -37.84256731756836,
+      "lng": -58.25051486492158,
+      "order": 1
+    }
+  ],
+  "createdAt": "2025-12-27T14:58:03.976Z"
+}

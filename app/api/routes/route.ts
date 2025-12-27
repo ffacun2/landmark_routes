@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { saveRoute, getAllRoutes } from '@/lib/routes-storage'
+import { uuidv4 } from 'zod'
 
 export async function GET(request: NextRequest) {
   try {
@@ -28,26 +29,25 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const route = await request.json()
-
-    // Validate route data
-    if (!route.id || !route.name || !route.author || !Array.isArray(route.landmarks)) {
+    const body = await request.json();
+    
+    if (!body.name || !body.landmarks || body.landmarks.length < 2) {
       return NextResponse.json(
-        { error: 'Invalid route data' },
+        { message: "Datos de ruta incompletos" }, 
         { status: 400 }
-      )
+      );
     }
 
-    if (route.landmarks.length < 2) {
-      return NextResponse.json(
-        { error: 'Route must have at least 2 landmarks' },
-        { status: 400 }
-      )
-    }
+    const newRoute = {
+      ...body,
+      id: uuidv4(),
+      createdAt: new Date().toISOString(),
+    };
 
-    const saved = await saveRoute(route)
+    const saved = await saveRoute(newRoute)
     return NextResponse.json({ routeId: saved.id }, { status: 201 })
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error creating route:', error)
     return NextResponse.json(
       { error: 'Failed to create route' },

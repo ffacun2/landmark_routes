@@ -1,25 +1,8 @@
 'use client'
 
 import { useToast } from "@/hooks/use-toast"
+import { Landmark, Route } from "@/types/route.types"
 
-
-
-interface Landmark {
-  id: string
-  name: string
-  description: string
-  lat: number
-  lng: number
-  order: number
-}
-
-interface Route {
-  id: string
-  name: string
-  author: string
-  landmarks: Landmark[]
-  createdAt: string
-}
 
 interface RouteDetailsProps {
   route: Route
@@ -38,6 +21,7 @@ export default function RouteDetails({
   onReorderLandmarks,
   onUpdateLandmark,
 }: RouteDetailsProps) {
+  
   const landmarks = isEditing ? editedLandmarks || route.landmarks : route.landmarks
   const sorted = [...landmarks].sort((a, b) => a.order - b.order)
   const createdDate = new Date(route.createdAt).toLocaleDateString()
@@ -50,11 +34,6 @@ export default function RouteDetails({
         title: "ID copiado en portapapeles",
         duration: 3000, // Tiempo que dura el mensaje (ms)
       });
-  }
-
-  const handleShareLink = () => {
-    const url = `${window.location.origin}/view-route/${route.id}`
-    navigator.clipboard.writeText(url)
   }
 
   const handleMoveUp = (index: number) => {
@@ -74,35 +53,37 @@ export default function RouteDetails({
   return (
     <div className="space-y-4">
       {/* Route Info */}
-      <div className="bg-surface rounded-2xl border-2 border-border p-6">
-        <div className="space-y-4">
-          <div>
-            <p className="text-xs font-semibold text-text-secondary uppercase">Route ID</p>
-            <div className="flex items-center gap-2 mt-1">
-              <code className="text-sm font-mono bg-surface-secondary p-2 rounded flex-1 truncate">
-                {route.id}
-              </code>
-              <button
-                onClick={handleCopyId}
-                className="px-3 py-2 bg-surface-secondary hover:bg-border rounded transition-colors text-sm font-medium cursor-pointer"
-                title="Copy route ID"
-              >
-                📋
-              </button>
+      {!isEditing && (
+            <div className="bg-surface rounded-2xl border-2 border-border p-6">
+            <div className="space-y-4">
+              <div>
+                <p className="text-xs font-semibold text-text-secondary uppercase">Route ID</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <code className="text-sm font-mono bg-surface-secondary p-2 rounded flex-1 truncate">
+                    {route.id}
+                  </code>
+                  <button
+                    onClick={handleCopyId}
+                    className="px-3 py-2 bg-surface-secondary hover:bg-border rounded transition-colors text-sm font-medium cursor-pointer"
+                    title="Copy route ID"
+                  >
+                    📋
+                  </button>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-border">
+                <p className="text-xs font-semibold text-text-secondary uppercase">Author</p>
+                <p className="text-sm mt-1 font-medium text-text-primary">{route.author}</p>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold text-text-secondary uppercase">Created</p>
+                <p className="text-sm mt-1 text-text-primary">{createdDate}</p>
+              </div>
             </div>
           </div>
-
-          <div className="pt-2 border-t border-border">
-            <p className="text-xs font-semibold text-text-secondary uppercase">Author</p>
-            <p className="text-sm mt-1 font-medium text-text-primary">{route.author}</p>
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold text-text-secondary uppercase">Created</p>
-            <p className="text-sm mt-1 text-text-primary">{createdDate}</p>
-          </div>
-        </div>
-      </div>
+        )}
 
       {/* Landmarks List */}
       <div className="bg-surface rounded-2xl border-2 border-border overflow-hidden">
@@ -114,7 +95,7 @@ export default function RouteDetails({
           {sorted.map((landmark, index) => (
             <div key={landmark.id} className={`p-4 ${isEditing ? 'bg-surface-secondary' : ''}`}>
               <div className="flex items-start gap-3 mb-2">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">
+                <span className="shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">
                   {index + 1}
                 </span>
                 <div className="flex-1 min-w-0">
