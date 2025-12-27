@@ -1,0 +1,25 @@
+{
+  "name": "Balca a Mardel",
+  "landmarks": [
+    {
+      "id": "52b2f546-f186-43cb-b81f-f9066748c1ac",
+      "name": "San José de Balcarce",
+      "description": "San José de Balcarce, Partido de Balcarce, Buenos Aires, Argentina",
+      "lat": -37.8464435,
+      "lng": -58.2555452,
+      "order": 0
+    },
+    {
+      "id": "293e199c-6f99-4672-a8c2-9e876ab3c5a2",
+      "name": "Mar del Plata",
+      "description": "Mar del Plata, Partido de General Pueyrredón, Buenos Aires, Argentina",
+      "lat": -37.9976168,
+      "lng": -57.5482079,
+      "order": 1
+    }
+  ],
+  "author": "Facundo Criado",
+  "authorId": "e4a78935-52ce-43ed-bac6-7fbd563f917c",
+  "id": "217ce66d-0bf0-4a1f-b3d2-f393e91cfde8",
+  "createdAt": "2025-12-27T20:24:14.382Z"
+}

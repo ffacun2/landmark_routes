@@ -10,5 +10,11 @@
     "name": "Facundo Criado",
     "email": "facu-1999-44@hotmail.com",
     "password": "$2b$10$g1cWMD7.6uGp/7/oqd9iSenz7/XIXJNtvBrhsUm49xjej7oizwRL6"
+  },
+  {
+    "id": "5058b522-0496-49e5-b8d3-d9f38e63d2a4",
+    "name": "Juan Perez",
+    "email": "pepe@gmail.com",
+    "password": "$2b$10$lczF3G9pGk7PdkgD5c5L9.oGa0g0BqeYVvbbNbDcovjurea40Slyy"
   }
 ]

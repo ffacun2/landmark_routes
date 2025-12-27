@@ -44,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         method: 'POST',
         body: JSON.stringify(userData),
     });
+    console.log("login method:", userData)
     const data = await res.json();
     
     if(!res.ok)
@@ -68,12 +69,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       method: 'POST',
       body: JSON.stringify(values),
     });
-
     const data = await res.json();
-
+    
     if (!res.ok) throw new Error(data.message || 'Error al crear cuenta');
-
-    login(data.user)
+    
+    console.log("register method:",values)
+    login(values)
   };
 
   return (
