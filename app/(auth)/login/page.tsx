@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { MapPin } from "lucide-react"
 import { useAuth } from "@/lib/context/auth-context"
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
+import { PasswordInput } from "@/components/form/passwordInput"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -56,7 +56,7 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="tu@email.com"
+                placeholder="example@email.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -71,15 +71,13 @@ export default function LoginPage() {
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
-              <Input
+              <PasswordInput 
                 id="password"
-                type="password"
                 placeholder="••••••••"
-                required
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: { target: { value: React.SetStateAction<string> } }) => setPassword(e.target.value)}
                 disabled={isLoading}
-              />
+                />
             </div>
 
             <Button type="submit" className="w-full" size="lg" disabled={isLoading}>

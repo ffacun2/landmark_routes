@@ -1,8 +1,7 @@
 "use client"
 
-import type React from "react"
+
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema, type RegisterFormValues } from "@/lib/auth/definitions"
@@ -16,12 +15,14 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast"
 import { Loader2 } from "lucide-react"
+import { PasswordInput } from "@/components/form/passwordInput"
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false)
-  const { login, registerUser } = useAuth() // Usamos login para actualizar el estado tras el registro
+  const { registerUser } = useAuth() 
   const { toast } = useToast()
-  const router = useRouter()
+  // Observamos el checkbox de términos (fuera de Zod por ser lógica de UI)
+  const [acceptTerms, setAcceptTerms] = useState(false)
 
   // Inicializamos React Hook Form con Zod
   const {
@@ -39,8 +40,6 @@ export default function RegisterPage() {
     },
   })
 
-  // Observamos el checkbox de términos (fuera de Zod por ser lógica de UI)
-  const [acceptTerms, setAcceptTerms] = useState(false)
 
   const onSubmit = async (values: RegisterFormValues) => {
     if (!acceptTerms) {
@@ -100,7 +99,7 @@ export default function RegisterPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="tu@email.com"
+                placeholder="example@email.com"
                 {...register("email")}
                 disabled={isLoading}
                 className={errors.email ? "border-destructive" : ""}
@@ -111,14 +110,13 @@ export default function RegisterPage() {
             {/* Campo Password */}
             <div className="space-y-2">
               <Label htmlFor="password">Contraseña</Label>
-              <Input
+              <PasswordInput 
                 id="password"
-                type="password"
                 placeholder="Mínimo 8 caracteres"
                 {...register("password")}
                 disabled={isLoading}
                 className={errors.password ? "border-destructive" : ""}
-              />
+                />
               {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
             </div>
 
@@ -130,7 +128,7 @@ export default function RegisterPage() {
                 onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
                 disabled={isLoading}
               />
-              <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer select-none">
+              <Label htmlFor="terms" className="text-xs leading-relaxed cursor-pointer select-none">
                 Acepto los{" "}
                 <Link href="/terms" className="text-primary hover:underline font-medium">términos</Link>
                 {" "}y la{" "}

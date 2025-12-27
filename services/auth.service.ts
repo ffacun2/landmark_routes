@@ -1,5 +1,5 @@
 import { LoginFormValues, RegisterFormValues } from '@/lib/auth/definitions';
-import { dbService } from '@/services/db.services';
+import { dbService } from '@/services/db.service';
 import bcrypt from 'bcryptjs';
 
 export const authService = {
