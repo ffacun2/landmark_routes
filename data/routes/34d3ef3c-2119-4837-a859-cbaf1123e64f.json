@@ -1,0 +1,49 @@
+{
+  "name": "afasf",
+  "landmarks": [
+    {
+      "id": "05ccb334-1941-4f8d-a931-68c18c1f88db",
+      "name": "Punto 1",
+      "description": "",
+      "lat": -37.846189246249814,
+      "lng": -58.25500488281251,
+      "order": 0
+    },
+    {
+      "id": "4b82c6b7-1a8b-4503-bc09-f675a3b24de8",
+      "name": "Punto 2",
+      "description": "",
+      "lat": -37.82807358699057,
+      "lng": -58.232624530792236,
+      "order": 1
+    },
+    {
+      "id": "9ee48e14-68ce-49cc-b103-3999baf6f04e",
+      "name": "Punto 3",
+      "description": "",
+      "lat": -37.81887000955132,
+      "lng": -58.22118759155274,
+      "order": 2
+    },
+    {
+      "id": "6706072e-53ab-4aac-9161-853c1be5a94f",
+      "name": "Punto 4",
+      "description": "",
+      "lat": -37.820717596909496,
+      "lng": -58.21700334548951,
+      "order": 3
+    },
+    {
+      "id": "f7eec918-c7be-4ac3-aff9-5e7a1d46afdb",
+      "name": "Punto 5",
+      "description": "",
+      "lat": -37.82727700595514,
+      "lng": -58.20745468139649,
+      "order": 4
+    }
+  ],
+  "author": "Facundo Criado",
+  "authorId": "e4a78935-52ce-43ed-bac6-7fbd563f917c",
+  "id": "34d3ef3c-2119-4837-a859-cbaf1123e64f",
+  "createdAt": "2025-12-27T19:37:37.765Z"
+}

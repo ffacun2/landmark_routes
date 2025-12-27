@@ -1,7 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/context/auth-context";
-import { useRouteEditor } from "@/hooks/use-route-editor";
 import { RouteEditor } from "@/components/route/route-editor";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import Backbutton from "@/components/backbutton";
@@ -11,6 +10,7 @@ import { routesService } from "@/services/routes.service";
 export default function ViewRoutePage() {
   const { id } = useParams();
   const { user } = useAuth();
+
   const { 
     route, landmarks, routeName, setRouteName,
     isEditing, setIsEditing, isSaving, setIsSaving, isLoading, error, setError,
@@ -26,7 +26,6 @@ export default function ViewRoutePage() {
         name: routeName, 
         landmarks: landmarks 
       });
-      // Opcional: recargar datos o mostrar éxito
       setIsEditing(false);
     } catch (err: any) {
       setError(err.message);

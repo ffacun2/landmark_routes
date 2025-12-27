@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { saveRoute, getAllRoutes } from '@/lib/routes-storage'
-import { uuidv4 } from 'zod'
+import { v4 as uuidv4 } from 'uuid'
 
 export async function GET(request: NextRequest) {
   try {
