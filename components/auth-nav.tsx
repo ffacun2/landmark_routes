@@ -18,59 +18,64 @@ export function AuthNav() {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Menu className="w-5 h-5" />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <nav className="md:flex items-center gap-3">
+        <Link href="/dashboard"><Button variant="ghost">Mis Rutas</Button></Link>
+      </nav>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <Menu className="w-5 h-5" />
+          </Button>
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-60 z-500">
-        
-
-
-        {!isLoading && (
-          <>
-            {isAuthenticated ? (
-              <>
-                <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
-                
-                <DropdownMenuSeparator />
-                
-                <DropdownMenuItem asChild>
-                  <Link href="/create" className="cursor-pointer">
-                  <Settings className="w-4 h-4 mr-2"/>
-                    Configurar cuenta
-                  </Link>
-                </DropdownMenuItem>
+        <DropdownMenuContent align="end" className="w-60 z-500">
+          
 
 
-                <DropdownMenuItem
-                  onClick={logout}
-                  className="cursor-pointer text-destructive"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Cerrar Sesión
-                </DropdownMenuItem>
-              </>
-            ) : (
-              <>
-                <DropdownMenuItem asChild>
-                  <Link href="/login" className="cursor-pointer">
-                    Iniciar Sesión
-                  </Link>
-                </DropdownMenuItem>
+          {!isLoading && (
+            <>
+              {isAuthenticated ? (
+                <>
+                  <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem asChild>
+                    <Link href="/create" className="cursor-pointer">
+                    <Settings className="w-4 h-4 mr-2"/>
+                      Configurar cuenta
+                    </Link>
+                  </DropdownMenuItem>
 
-                <DropdownMenuItem asChild>
-                  <Link href="/register" className="cursor-pointer">
-                    Registrarse
-                  </Link>
-                </DropdownMenuItem>
-              </>
-            )}
-          </>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
+
+                  <DropdownMenuItem
+                    onClick={logout}
+                    className="cursor-pointer text-destructive"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Cerrar Sesión
+                  </DropdownMenuItem>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link href="/login" className="cursor-pointer">
+                      Iniciar Sesión
+                    </Link>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem asChild>
+                    <Link href="/register" className="cursor-pointer">
+                      Registrarse
+                    </Link>
+                  </DropdownMenuItem>
+                </>
+              )}
+            </>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }
