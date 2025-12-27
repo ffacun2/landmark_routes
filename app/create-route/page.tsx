@@ -172,7 +172,7 @@ export default function CreateRoute() {
     <main className="min-h-screen bg-background">
      
       {/* Header */}
-      <Backbutton/>
+      <Backbutton string="Volver"/>
       <header className="flex justify-center">
             <h1 className="text-4xl font-bold text-text-primary">Create New Route</h1>   
       </header>
@@ -219,7 +219,7 @@ export default function CreateRoute() {
                 <button
                   onClick={saveRoute}
                   disabled={isSaving || landmarks.length < 2}
-                  className="w-full py-2 px-4 bg-gradient-to-r from-primary to-primary-light text-white font-semibold rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="w-full py-2 px-4 bg-linear-to-r from-primary to-primary-light text-white font-semibold rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   {isSaving ? 'Saving...' : 'Save Route'}
                 </button>
