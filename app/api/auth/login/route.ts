@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const validated = LoginSchema.safeParse(body);
-    console.log("aca body: ",body)
+
     if (!validated.success) {
       return NextResponse.json({ message: 'Datos inválidos' }, { status: 400 });
     }

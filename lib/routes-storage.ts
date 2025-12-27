@@ -52,18 +52,15 @@ export async function getAllRoutes(): Promise<Route[]> {
 
 export async function getRoute(id: string): Promise<Route | null> {
   try {
-    // 1. Asegúrate de que el ID esté limpio de espacios, aunque el frontend ya hace trim
+
     const cleanId = id.trim(); 
     await ensureRoutesDir();
     const filePath = path.join(ROUTES_DIR, `${cleanId}.json`);
-    console.log("Attempting to read file:", filePath);
-    console.log(`Attempting to read file: ${filePath}`); // <-- AÑADE ESTO para depuración
 
     const content = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(content);
-  } catch (error: any) { // Importante: usar ': any' para acceder a 'error.code'
+  } catch (error: any) {
     
-    // Si es un error de "Archivo No Encontrado" (ENOENT), es normal y devuelve 404
     if (error.code === 'ENOENT') {
       console.warn(`Route not found (ENOENT) for ID: ${id}`);
       return null; // Devuelve null para que el API handler devuelva 404
@@ -80,7 +77,6 @@ export async function saveRoute(route: Route): Promise<Route> {
     await ensureRoutesDir()
     const filePath = path.join(ROUTES_DIR, `${route.id}.json`)
     await fs.writeFile(filePath, JSON.stringify(route, null, 2))
-    console.log("Saving route at:", filePath);
     return route
   } catch (error) {
     console.error('Error saving route:', error)
