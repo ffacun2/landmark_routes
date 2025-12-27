@@ -8,12 +8,12 @@ export function useTrip(routeId?: string) {
   const [route, setRoute] = useState<Route | null>(null);
   const [landmarks, setLandmarks] = useState<Landmark[]>([]);
   const [routeName, setRouteName] = useState('');
-  const [isEditing, setIsEditing] = useState(!routeId); // Si no hay ID, empezamos editando (creando)
+  const [isEditing, setIsEditing] = useState(!routeId); 
   const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(!!routeId); // Solo cargando si hay ID
+  const [isLoading, setIsLoading] = useState(!!routeId); 
   const [error, setError] = useState('');
 
-  // 1. Carga inicial (Solo si es Edición)
+  
   useEffect(() => {
     if (routeId) {
       routesService.getById(routeId)
@@ -27,7 +27,7 @@ export function useTrip(routeId?: string) {
     }
   }, [routeId]);
 
-  // 2. Lógica de manipulación de Landmarks (Compartida)
+  
   const addLandmark = (lat: number, lng: number, name?: string, desc?: string) => {
     const newLandmark: Landmark = {
       id: uuidv4(),
@@ -61,7 +61,7 @@ export function useTrip(routeId?: string) {
   };
 
   return {
-    route, landmarks, routeName, setRouteName,
+    route, setRoute,landmarks, setLandmarks,routeName, setRouteName,
     isEditing, setIsEditing, isSaving, setIsSaving, isLoading, error, setError,
     addLandmark, updateLandmark, removeLandmark, reorderLandmarks, cancel
   };

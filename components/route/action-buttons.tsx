@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Edit3, Trash2 } from "lucide-react";
 
 interface ActionButtonsProps {
   isAuthor: boolean;
@@ -7,9 +8,10 @@ interface ActionButtonsProps {
   onEdit: () => void;
   onCancel: () => void;
   onSave: () => void;
+  onDelete: () => void;
 }
 
-export function ActionButtons({ isAuthor, isEditing, isSaving, onEdit, onCancel, onSave }: ActionButtonsProps) {
+export function ActionButtons({ isAuthor, isEditing, isSaving, onEdit, onCancel, onSave, onDelete}: ActionButtonsProps) {
   if (!isAuthor) return null;
 
   return (
@@ -24,9 +26,22 @@ export function ActionButtons({ isAuthor, isEditing, isSaving, onEdit, onCancel,
           </Button>
         </div>
       ) : (
-        <Button onClick={onEdit} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
-          Editar Ruta
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={onEdit} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white">
+            <Edit3 className="w-4 h-4 mr-2" /> Editar Ruta
+          </Button>
+          <Button 
+            variant="destructive" 
+            onClick={() => {
+              if(confirm("¿Estás seguro de que quieres eliminar esta ruta?")) {
+                onDelete?.();
+              }
+            }} 
+            className="px-3"
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
       )}
     </div>
   );

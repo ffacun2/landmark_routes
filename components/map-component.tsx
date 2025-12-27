@@ -1,5 +1,6 @@
 'use client'
 
+import { Landmark } from '@/types/route.types'
 import { useEffect, useRef, useState } from 'react'
 
 const getLeaflet = () => {
@@ -7,14 +8,6 @@ const getLeaflet = () => {
   return (window as typeof window & { L?: any }).L ?? null
 }
 
-interface Landmark {
-  id: string
-  name: string
-  description: string
-  lat: number
-  lng: number
-  order: number
-}
 
 interface MapComponentProps {
   landmarks: Landmark[]
@@ -63,7 +56,7 @@ export default function MapComponent({ landmarks, onMapClick }: MapComponentProp
         document.body.appendChild(scriptRouting)
       }
 
-      script.onerror = () => console.error('[v0] Failed to load Leaflet')
+      script.onerror = () => console.error('Failed to load Leaflet')
       document.body.appendChild(script)
     } else {
       setTimeout(() => setMapLoaded(true), 100)
@@ -97,7 +90,7 @@ export default function MapComponent({ landmarks, onMapClick }: MapComponentProp
         setMap(null)
       }
     } catch (err) {
-      console.error('[v0] Error initializing map:', err)
+      console.error('Error initializing map:', err)
     }
   }, [mapLoaded])
 

@@ -15,6 +15,7 @@ interface RouteEditorProps {
   onEdit: () => void;
   onCancel: () => void;
   onSave: () => void;
+  onDelete: () => void;
   onAddLandmark: (lat: number, lng: number, name?: string, desc?: string) => void;
   onRemoveLandmark: (id: string) => void;
   onReorderLandmarks: (l: Landmark[]) => void;
@@ -58,6 +59,7 @@ export function RouteEditor(props: RouteEditorProps) {
             onEdit={props.onEdit}
             onCancel={props.onCancel}
             onSave={props.onSave}
+            onDelete={props.onDelete}
           />
 
           {props.isEditing && (

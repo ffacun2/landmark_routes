@@ -6,7 +6,7 @@ export async function GET(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params; // <- ESTO ARREGLA TODO
+    const { id } = await context.params;
 
     const route = await getRoute(id);
 
@@ -18,8 +18,10 @@ export async function GET(
     }
 
     return NextResponse.json(route);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error fetching route:', error);
+
     return NextResponse.json(
       { error: 'Failed to fetch route' },
       { status: 500 }
@@ -45,7 +47,8 @@ export async function PUT(
     }
 
     return NextResponse.json(updated);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error('Error updating route:', error);
     return NextResponse.json(
       { error: 'Failed to update route' },
@@ -55,27 +58,25 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  req: Request,
+  { params }: { params: Promise<{ id: string }> } 
 ) {
   try {
-    const { id } = await context.params;
-
-    const deleted = await deleteRoute(id);
-
-    if (!deleted) {
+    const { id } = await params; 
+    
+    const success = await deleteRoute(id);
+    
+    if (!success) {
       return NextResponse.json(
-        { error: 'Route not found' },
+        { message: "La ruta no existe o no pudo ser eliminada" },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Error deleting route:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete route' },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Ruta eliminada correctamente" });
+  } 
+  catch (error) {
+    console.error("Error en API DELETE:", error);
+    return NextResponse.json({ message: "Error al eliminar" }, { status: 500 });
   }
 }

@@ -1,3 +1,4 @@
+import { DELETE } from "@/app/api/routes/[id]/route";
 import { NewRouteData } from "@/types/route.types";
 
 // services/routes.service.ts
@@ -17,7 +18,6 @@ export const routesService = {
       throw new Error(errorData.message || 'Error al crear la ruta');
     }
 
-    // Retornamos la respuesta que usualmente trae el routeId para redirigir
     return res.json(); 
   },
 
@@ -36,5 +36,17 @@ export const routesService = {
       });
       if (!res.ok) throw new Error('Failed to save changes');
       return res.json();
+    },
+
+
+    async deleteRoute(id: string) {
+      const res = await fetch(`/api/routes/${id}`,{
+        method: 'DELETE',
+      })
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'No se pudo eliminar la ruta');
+      }
+      return data;
     }
   };
