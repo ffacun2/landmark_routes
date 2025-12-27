@@ -26,16 +26,12 @@ export  function RouteList() {
   const router = useRouter()
   const {user, isLoading} = useAuth();
   const [routes, setRoutes] = useState<Route[]>([])
-  //const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-
-  
   
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
-        //setIsLoading(true)
         setError(null)
         const response = await fetch(`/api/routes?userId=${user?.id}`)
         
@@ -48,9 +44,7 @@ export  function RouteList() {
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar las rutas')
         console.error('Error fetching routes:', err)
-      } finally {
-        //setIsLoading(false)
-      }
+      } 
     }
 
     fetchRoutes()
