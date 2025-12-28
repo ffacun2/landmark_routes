@@ -16,8 +16,26 @@ export const dbService = {
     await fs.writeFile(filePath, JSON.stringify(users, null, 2));
   },
 
-  async findUserByEmail(email: string) {
+  async getUserByEmail(email: string) {
     const users = await this.getAllUsers();
     return users.find(u => u.email === email);
+  },
+
+  async getUserById (id: string) {
+    const users = await this.getAllUsers();
+    return users.find(user => user.id === id);
+  },
+
+  async updateUser (updatedUser:User){
+    const users = await this.getAllUsers();
+    const index = users.findIndex(u => u.id === updatedUser.id);
+
+    if (index === -1) {
+      return null
+    }
+
+    users[index] = { ...users[index], ...updatedUser };
+
+    await fs.writeFile(filePath, JSON.stringify(users, null, 2));
   }
 };

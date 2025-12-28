@@ -1,19 +1,8 @@
-"use client"
 
-import { useAuth } from "@/lib/context/auth-context"
 import UpdateProfilePanel from "@/components/user/update-profile"
 import UpdatePasswordPanel from "@/components/user/update-password"
-import { LoadingSpinner } from "@/components/ui/loading-spinner"
 
 export default function SettingsPage() {
-  const { user, isAuthenticated, isLoading } = useAuth()
-
-
-  if (isLoading) <LoadingSpinner/>
-
-  if (!user) {
-    return null
-  }
 
   return (
     <div className="min-h-screen bg-background py-12 px-4">

@@ -41,3 +41,14 @@ export async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete('session'); // Borra la cookie llamada 'session'
 }
+
+export async function getSession() {
+  const cookieStore = await cookies();
+  const sessionToken = cookieStore.get('session')?.value;
+  
+  if(!sessionToken) return null
+
+  const session = await decrypt(sessionToken);
+
+  return session;
+}

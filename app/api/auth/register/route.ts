@@ -1,5 +1,5 @@
 import { RegisterSchema } from '@/lib/auth/definitions';
-import { authService } from '@/services/auth.service';
+import { authService } from '@/services/auth/auth.service';
 import { createSession } from '@/lib/auth/session';
 import { NextResponse } from 'next/server';
 

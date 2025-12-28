@@ -1,10 +1,12 @@
-import { Loader2, User } from "lucide-react";
+"use client"
+import { Loader2, User as UserIcon } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/context/auth-context";
 
 
 
@@ -12,7 +14,7 @@ export default function UpdateProfilePanel () {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [isUpdatingProfile, setIsUpdatingProfile] = useState(false)
-
+    const {user, updateUser} = useAuth();
 
     useEffect(() => {
         if (user) {
@@ -27,21 +29,8 @@ export default function UpdateProfilePanel () {
         setIsUpdatingProfile(true)
     
         try {
-          const response = await fetch("/api/auth/update-profile", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-            },
-            body: JSON.stringify({ name, email }),
-          })
-    
-          const data = await response.json()
-    
-          if (!response.ok) {
-            throw new Error(data.error || "Error al actualizar perfil")
-          }
-    
+          const updated = await updateUser({name, email})
+          
           toast({
             title: "Perfil actualizado",
             description: "Tus datos se actualizaron correctamente",
@@ -49,7 +38,8 @@ export default function UpdateProfilePanel () {
     
           // Recargar la página para actualizar el contexto
           window.location.reload()
-        } catch (error: any) {
+        } 
+        catch (error: any) {
           toast({
             title: "Error",
             description: error.message,
@@ -64,7 +54,7 @@ export default function UpdateProfilePanel () {
         <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <User className="w-5 h-5" />
+            <UserIcon className="w-5 h-5" />
             Información Personal
           </CardTitle>
           <CardDescription>Actualiza tu nombre y correo electrónico</CardDescription>

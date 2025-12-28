@@ -1,3 +1,4 @@
+"use client"
 import { Loader2, Lock } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
@@ -6,6 +7,7 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/context/auth-context";
 
 
 export default function UpdatePasswordPanel() {
@@ -13,6 +15,7 @@ export default function UpdatePasswordPanel() {
     const [newPassword, setNewPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [isChangingPassword, setIsChangingPassword] = useState(false)
+    const {updateUser} = useAuth();
 
     const handleChangePassword = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -38,21 +41,8 @@ export default function UpdatePasswordPanel() {
         setIsChangingPassword(true)
     
         try {
-          const response = await fetch("/api/auth/change-password", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-            },
-            body: JSON.stringify({ currentPassword, newPassword }),
-          })
-    
-          const data = await response.json()
-    
-          if (!response.ok) {
-            throw new Error(data.error || "Error al cambiar contraseña")
-          }
-    
+          const update = await updateUser({password:newPassword})
+          
           toast({
             title: "Contraseña actualizada",
             description: "Tu contraseña se cambió correctamente",
@@ -62,6 +52,7 @@ export default function UpdatePasswordPanel() {
           setCurrentPassword("")
           setNewPassword("")
           setConfirmPassword("")
+
         } catch (error: any) {
           toast({
             title: "Error",

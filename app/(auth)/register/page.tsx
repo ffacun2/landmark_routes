@@ -1,6 +1,5 @@
 "use client"
 
-
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -18,10 +17,8 @@ import { Loader2 } from "lucide-react"
 import { PasswordInput } from "@/components/form/passwordInput"
 
 export default function RegisterPage() {
-  const [isLoading, setIsLoading] = useState(false)
-  const { registerUser } = useAuth() 
+  const { registerUser, isLoading } = useAuth() 
   const { toast } = useToast()
-  // Observamos el checkbox de términos (fuera de Zod por ser lógica de UI)
   const [acceptTerms, setAcceptTerms] = useState(false)
 
   // Inicializamos React Hook Form con Zod
@@ -51,22 +48,19 @@ export default function RegisterPage() {
       return
     }
 
-    setIsLoading(true)
-
     try {
       const data = await registerUser(values);
       toast({
         title: "¡Bienvenido!",
         description: "Cuenta creada exitosamente",
       })    
-    } catch (error: any) {
+    } 
+    catch (error: any) {
       toast({
         title: "Error de registro",
         description: error.message,
         variant: "destructive",
       })
-    } finally {
-      setIsLoading(false)
     }
   }
 

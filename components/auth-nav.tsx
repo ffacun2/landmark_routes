@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 
 
 export function AuthNav() {
-  const { user, isAuthenticated, logout, isLoading } = useAuth();
+  const { user, isAuthenticated, logoutUser, isLoading } = useAuth();
 
   if (isLoading)
     return <div className="w-10 h-10 animate-pulse bg-muted rounded-full" />;
@@ -50,7 +50,7 @@ export function AuthNav() {
 
 
                   <DropdownMenuItem
-                    onClick={logout}
+                    onClick={logoutUser}
                     className="cursor-pointer text-destructive"
                   >
                     <LogOut className="w-4 h-4 mr-2" />

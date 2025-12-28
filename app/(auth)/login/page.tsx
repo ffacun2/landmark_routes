@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const { login } = useAuth()
+  const { loginUser } = useAuth()
   const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ export default function LoginPage() {
     
     setIsLoading(true)
     try {
-      await login({email:email, password:password})
+      await loginUser({email:email, password:password})
       toast({
         title: "Inicio de sesión exitoso",
         description: "Bienvenido de vuelta",

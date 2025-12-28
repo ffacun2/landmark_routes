@@ -1,16 +1,18 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { RegisterFormValues, User } from '@/lib/auth/definitions';
+import { LoginFormValues, RegisterFormValues, User } from '@/lib/auth/definitions';
 import { useRouter } from 'next/navigation';
+import { authClient } from '@/services/auth/auth.client';
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (userData: User) => void;
-  registerUser: (values:RegisterFormValues) => void;
-  logout: () => void;
+  loginUser: (credentials: LoginFormValues) => void;
+  registerUser: (values: RegisterFormValues) => void;
+  logoutUser: () => void;
+  updateUser: (user:User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,68 +24,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Al cargar, verificamos si hay una sesión activa (llamando a un endpoint de perfil)
   useEffect(() => {
-    async function checkAuth() {
-      try {
-        const res = await fetch('/api/auth/me'); // Endpoint que verifica el JWT en la cookie
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data.user);
-          router.push('/dashboard');
-        }
-      } catch (error) {
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    checkAuth();
+    authClient.checkSession()
+    .then(data => setUser(data.user))
+    .catch(() => setUser(null))
+    .finally(() => setIsLoading(false))
   }, []);
 
-  const login = async (userData: User) => {
-    const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(userData),
-    });
-
-    const data = await res.json();
-    
-    if(!res.ok)
-        throw new Error (data.message || "Error de autenticacion")
+  const loginUser = async (credentials: LoginFormValues) => {
+    const data = await authClient.login(credentials)
     setUser(data.user);
     router.push('/dashboard');
   };
 
-  const logout = async () => {
-    const res = await fetch('/api/auth/logout', { method: 'POST' });
-
-    if (res.ok) {
+  const logoutUser = async () => {
+    await authClient.logout();
       setUser(null);
       router.push('/');
       router.refresh(); // Limpia la caché de las rutas de servidor
-    }
-
   };
 
   const registerUser = async (values:RegisterFormValues) => {
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      body: JSON.stringify(values),
-    });
-    const data = await res.json();
+    const data = await authClient.register(values);
     
-    if (!res.ok) throw new Error(data.message || 'Error al crear cuenta');
-    
-    login(values)
-  };
+    authClient.login(values)
+  }
+
+  const updateUser = async (user: User) => {
+    const data = await authClient.updateProfile(user);
+    setUser(data.user)
+    router.refresh();
+  }  
 
   return (
     <AuthContext.Provider value={{ 
       user, 
       isAuthenticated: !!user, 
       isLoading, 
-      login, 
+      loginUser, 
       registerUser,
-      logout 
+      logoutUser,
+      updateUser
     }}>
       {children}
     </AuthContext.Provider>
