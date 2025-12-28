@@ -1,0 +1,33 @@
+{
+  "name": "Viajesito",
+  "landmarks": [
+    {
+      "id": "3499969d-830a-49dc-9251-67dda644cec3",
+      "name": "San José de Balcarce",
+      "description": "San José de Balcarce, Partido de Balcarce, Buenos Aires, Argentina",
+      "lat": -37.8464435,
+      "lng": -58.2555452,
+      "order": 0
+    },
+    {
+      "id": "de16236b-fd79-43d7-a3b7-1fd6518d837e",
+      "name": "Miramar",
+      "description": "Miramar, Partido de General Alvarado, Buenos Aires, Argentina",
+      "lat": -38.2704349,
+      "lng": -57.8387997,
+      "order": 1
+    },
+    {
+      "id": "0f705873-29d9-4159-a005-790555e3ae2a",
+      "name": "Mar del Plata",
+      "description": "Mar del Plata, Partido de General Pueyrredón, Buenos Aires, Argentina",
+      "lat": -37.9976168,
+      "lng": -57.5482079,
+      "order": 2
+    }
+  ],
+  "author": "Facundo Criado",
+  "authorId": "e4a78935-52ce-43ed-bac6-7fbd563f917c",
+  "id": "b7d4f061-2a06-47b9-891f-47d3b248302f",
+  "createdAt": "2025-12-28T04:22:27.777Z"
+}

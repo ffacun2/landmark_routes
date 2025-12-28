@@ -22,6 +22,21 @@ export default function ViewRoutePage() {
 
   if (isLoading) return <LoadingSpinner />;
 
+  if (error && !route) {
+    return (
+      <main className="min-h-screen bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+          <p className="text-error text-lg">{error}</p>
+          <button
+            onClick={() => router.push('/view-route')}
+            className="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors"
+          >
+            Volver a Buscar
+          </button>
+        </div>
+      </main>
+    )}
+
   const handleDelete = async () => {
     try {
       await routesService.deleteRoute(id as string);
