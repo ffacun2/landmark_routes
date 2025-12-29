@@ -39,6 +39,12 @@ La aplicación cuenta con un Middleware de Next.js que actúa como guardián de 
 
 - **Validación de Sesión:** Implementa getSession mediante jwtVerify para asegurar que el token de la cookie session no haya sido manipulado.
 
+
+## Decisiones Técnicas
+- **Librería de mapeo:** Se seleccionó Leaflet en lugar de Google Maps para evitar claves de API y simplificar el desarrollo local. Los tiles provienen de OpenStreetMap y la atribución se inyecta automáticamente por Leaflet.
+- **Carga dinámica de activos:** El CSS/JS de Leaflet se inyecta solo en el cliente dentro de MapComponent para mantener ligera la compilación del servidor de Next.js.
+- **Gestión de marcadores:** Los puntos de interés se renderizan como circleMarkers más iconos div numerados para que el orden permanezca visible en el mapa. Las rutas se conectan con una polilínea discontinua y la ventana gráfica se ajusta automáticamente a todos los puntos de interés.
+
 ## Instalación y Configuración
 1. **Clonar e Instalar:**
 
